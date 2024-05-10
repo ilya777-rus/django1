@@ -1,0 +1,40 @@
+{% extends 'core/base.html'%}
+
+
+{%block sidebar%}
+<div class="col-md-3">
+    <ul class="list-group">
+        {%for cat in categories%}
+        <a href="{{cat.get_absolute_url}}" class="list-group-item ">{{cat.name}}</a>
+        {%endfor%}
+    </ul>
+</div>
+{%endblock %}
+
+{%block content%}
+<div class="col-md-9">
+    {% for item in posts %}
+    <div class="cord mt-3 mb-3">
+        <div class="card-header">
+          Категория:  <a href="{{item.category.get_absolute_url}}"> {{ item.category }}</a>
+        </div>
+        <div class="card-body">
+            <div class="media">
+                {% if item.image %}
+                <img src="{{ item.image.url}}" alt="">
+                {% else %}
+
+                {% endif %}
+            </div>
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">{{ item.full_description }}</p>
+            <a href="#" class="btn btn-primary">Read more...</a>
+        </div>
+        <div class="card-footer text-body-secondary">
+            {{ item.time_create|date:"Y:m:d H:i" }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{%endblock%}
+
